@@ -70,7 +70,7 @@ public class CommentServiceImpl implements CommentService {
         //retrieve Post By Id
         Post post=postRepository.findById(postId).orElseThrow(
                 ()->new ResourceNotFoundException("Post","id",postId));
-        //retrieve Comment by Id
+        //retrieve Comment by id
         Comments comments=CommentRepository.findById(commentId).orElseThrow(
                 ()->new ResourceNotFoundException("Comments","id",commentId)
         );
