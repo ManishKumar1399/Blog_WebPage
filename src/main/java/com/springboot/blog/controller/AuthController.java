@@ -18,6 +18,7 @@ public class AuthController {
     private AuthService authService;
 
     public AuthController(AuthService authService) {
+
         this.authService = authService;
     }
 

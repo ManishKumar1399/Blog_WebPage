@@ -38,7 +38,8 @@ public class SecurityConfig {
     }
     @Bean
     public static PasswordEncoder PasswordEncoder(){
-        return new BCryptPasswordEncoder();
+
+       return new BCryptPasswordEncoder();
     }
 
     @Bean
@@ -51,7 +52,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authorize) ->
                         //authorize.anyRequest().authenticated()
                         authorize.requestMatchers(HttpMethod.GET,"/api/**").permitAll()
-                                .requestMatchers("/api/auth**").permitAll()
+                                .requestMatchers("/api/auth/**").permitAll()
                                 .anyRequest().authenticated()
                 ).exceptionHandling(exception -> exception
                         .authenticationEntryPoint(authenticationEntryPoint)
