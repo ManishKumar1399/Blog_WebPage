@@ -80,20 +80,31 @@ public class PostServiceImpl implements PostService {
     public PostDto updatePost(PostDto postDto, long id) {
         // get post by id from the database
         Post post = postRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Post", "id", id));
+        Category category= categoryRepository.findById(postDto.getCategoryId())
+                        .orElseThrow(()->new ResourceNotFoundException("Category","id", postDto.getCategoryId()));
 
         post.setTitle(postDto.getTitle());
         post.setDescription(postDto.getDescription());
         post.setContent(postDto.getContent());
-
+        post.setCategory(category);
         Post updatedPost = postRepository.save(post);
         return mapToDTO(updatedPost);
     }
 
-    @Override
-    public void deletePostById(long id) {
+        @Override
+        public void deletePostById(long id) {
         // get post by id from the database
         Post post = postRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Post", "id", id));
         postRepository.delete(post);
+    }
+
+    @Override
+    public List<PostDto> getPostsByCategory(Long CategoryId) {
+      Category category =categoryRepository.findById(CategoryId)
+                .orElseThrow(()-> new ResourceNotFoundException("CategoryId","Id",CategoryId));
+      List<Post> posts=postRepository.findByCategoryId(CategoryId);
+        return posts.stream().map(post -> mapToDTO(post))
+                .collect(Collectors.toList());
     }
 
     // convert Entity into DTO
