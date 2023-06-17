@@ -15,14 +15,15 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/posts")
 public class PostController {
-
+/*/*Consider a Department object with Id and name is stored in Department table
+ * , Develop a controller method which gets an Id as input and returns the name
+ * , if no name is present for that Id, return a default name.*/
     private PostService postService;
 
     public PostController(PostService postService) {
         this.postService = postService;
     }
-
-    // create blog post rest api
+     // create blog post rest api
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<PostDto> createPost(@Valid @RequestBody PostDto postDto){
